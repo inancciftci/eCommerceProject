@@ -1,14 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import HeaderTop from "../HeaderTop";
-import HeaderMobile from "../HeaderMobile";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/authentication/userSlice";
-import LoginRegister from "../LoginRegister";
-import UserAvatar from "../UserAvatar";
+import HeaderMobile from "../HeaderMobile";
 
 const Header = () => {
-  const user = useSelector(selectUser).token;
   const [showMenu, setShowMenu] = useState(false);
   const menuToggle = () => {
     setShowMenu(!showMenu);
@@ -19,7 +13,6 @@ const Header = () => {
   }, [location]);
   return (
     <header>
-      <HeaderTop />
       <div className="container mx-auto py-[2rem] flex max-md:hidden">
         <div className="flex justify-between items-center gap-[3rem] w-[100%] max-md:hidden">
           <Link to="/" className="text-[2.4rem] font-[700]">
@@ -45,8 +38,12 @@ const Header = () => {
             </div>
             <div>
               <ul className="flex items-center gap-[2rem] text-[#252B42]">
-                <li>{!user ? <LoginRegister /> : <UserAvatar />}</li>
-
+                <li className="text-[1.4rem] cursor-pointer">
+                  <i className="fa-solid fa-user"></i>
+                  <Link to="/login">Login</Link>
+                  <span> / </span>
+                  <Link to="/signup">Register</Link>
+                </li>
                 <li className="text-[1.4rem] cursor-pointer">
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </li>
@@ -61,7 +58,7 @@ const Header = () => {
           </nav>
         </div>
       </div>
-      <HeaderMobile user={user} menuToggle={menuToggle} showMenu={showMenu} />
+      <HeaderMobile menuToggle={menuToggle} showMenu={showMenu} />
     </header>
   );
 };
