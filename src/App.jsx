@@ -8,6 +8,7 @@ import TeamPage from "./ui/pages/TeamPage";
 import AboutPage from "./ui/pages/AboutPage";
 import ContactPage from "./ui/pages/ContactPage";
 import ProductPage from "./ui/pages/ProductPage";
+import SignupPage from "./ui/pages/SignupPage";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const App = () => {
         {
           path: "/product",
           element: <ProductPage />,
+        },
+        {
+          path: "/signup",
+          element: <SignupPage />,
         },
       ],
     },
