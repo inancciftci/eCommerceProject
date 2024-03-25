@@ -10,8 +10,25 @@ import ContactPage from "./ui/pages/ContactPage";
 import ProductPage from "./ui/pages/ProductPage";
 import SignupPage from "./ui/pages/SignupPage";
 import LoginPage from "./ui/pages/LoginPage";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "./features/authentication/userSlice";
+import { API_URL } from "./app/api";
+import axios from "axios";
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    axios
+      .get(`${API_URL}/verify`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => dispatch(setUser(res.data)));
+  }, [dispatch]);
   const router = createBrowserRouter([
     {
       element: <AppLayout />,
