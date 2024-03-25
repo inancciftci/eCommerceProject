@@ -9,6 +9,7 @@ import AboutPage from "./ui/pages/AboutPage";
 import ContactPage from "./ui/pages/ContactPage";
 import ProductPage from "./ui/pages/ProductPage";
 import SignupPage from "./ui/pages/SignupPage";
+import LoginPage from "./ui/pages/LoginPage";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -39,6 +40,10 @@ const App = () => {
         {
           path: "/signup",
           element: <SignupPage />,
+        },
+        {
+          path: "/login",
+          element: <LoginPage />,
         },
       ],
     },
