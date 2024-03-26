@@ -51,7 +51,7 @@ const App = () => {
           element: <ContactPage />,
         },
         {
-          path: "/product",
+          path: "/product/:category/:productId/:productName",
           element: <ProductPage />,
         },
         {
