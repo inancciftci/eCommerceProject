@@ -58,12 +58,11 @@ export default function ProductCard({ product }) {
               {product?.rating} out of 5
             </span>
           </Link>
-          <p>
-            We focus on ergonomics and meeting you where you work. Its only a
-            keystroke away.
-          </p>
+          <p>{product?.description}</p>
           <div className="flex gap-[1rem]">
-            <h5 className="text-[#23856d] font-bold">{product?.price} ₺</h5>
+            <h5 className="text-[#23856d] font-bold self-end">
+              {product?.price} ₺
+            </h5>
           </div>
         </div>
       </div>
