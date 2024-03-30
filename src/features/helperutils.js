@@ -30,3 +30,10 @@ export const scrollTop = () => {
     behavior: "smooth",
   });
 };
+
+export const scrollLower = () => {
+  window.scrollTo({
+    top: 600,
+    behavior: "smooth",
+  });
+};
