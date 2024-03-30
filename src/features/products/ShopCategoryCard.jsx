@@ -1,9 +1,20 @@
 /* eslint-disable react/prop-types */
 
-import { Link } from "react-router-dom";
-import { scrollTop, trToEn } from "../helperutils";
+import { Link, useSearchParams } from "react-router-dom";
+import { scrollLower } from "../helperutils";
 
 const ShopCategoryCard = ({ category }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const clickHandler = (e) => {
+    console.log(e.target);
+    const { name } = e.target;
+    const currentParams = Object.fromEntries([...searchParams]);
+    const newParams = { ...currentParams, [name]: category?.id };
+
+    setSearchParams(newParams);
+    scrollLower();
+  };
+  // console.log(category);
   return (
     <div className="w-[19%] ">
       <img
@@ -20,11 +31,9 @@ const ShopCategoryCard = ({ category }) => {
         </div>
         <div>
           <Link
-            onClick={scrollTop}
+            name="category"
+            onClick={clickHandler}
             className="uppercase font-[300]"
-            to={`/shop/${trToEn(category?.gender)}/${trToEn(
-              category?.title.toLowerCase()
-            )}`}
           >
             &gt;&gt; View more
           </Link>
