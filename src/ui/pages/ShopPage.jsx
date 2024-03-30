@@ -28,14 +28,11 @@ const ShopPage = () => {
   if (currentURL.length >= 2) {
     urlToFetch = currentURL[1];
   }
-  // console.log(urlToFetch);
   useEffect(() => {
     if (urlToFetch) {
-      // console.log("we will get the products depending on url");
       dispatch(fetchProducts(urlToFetch));
     } else {
       dispatch(fetchProducts());
-      // console.log("This will fetch products as default");
     }
   }, [dispatch, urlToFetch]);
 
