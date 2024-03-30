@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../features/authentication/userSlice";
 import LoginRegister from "../LoginRegister";
 import UserAvatar from "../../features/authentication/UserAvatar";
+import HeaderTop from "../HeaderTop";
 
 const Header = () => {
   const user = useSelector(selectUser).token;
@@ -18,6 +19,7 @@ const Header = () => {
   }, [location]);
   return (
     <header>
+      <HeaderTop />
       <div className="container mx-auto py-[2rem] flex max-md:hidden">
         <div className="flex justify-between items-center gap-[3rem] w-[100%] max-md:hidden">
           <Link to="/" className="text-[2.4rem] font-[700]">
