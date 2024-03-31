@@ -16,6 +16,7 @@ import { setUser } from "./features/authentication/userSlice";
 import { API_URL } from "./app/api";
 import axios from "axios";
 import ShopPage from "./ui/pages/ShopPage";
+import CartPage from "./features/cart/CartPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -54,6 +55,10 @@ const App = () => {
         {
           path: "/shop",
           element: <ShopPage />,
+        },
+        {
+          path: "/cart",
+          element: <CartPage />,
         },
         {
           path: "/product/:category/:productId/:productName",

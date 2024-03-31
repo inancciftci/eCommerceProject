@@ -69,7 +69,7 @@
 
   .toast-message {
     color: #fff;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   #horizontal-box::-webkit-scrollbar {
@@ -78,6 +78,13 @@
 }
 
 @layer components {
+  .cart-dropdown {
+    @apply border-slate-300 border-[0.1rem] w-[32rem] p-[1rem] bg-[#FAFAFA] shadow-lg rounded-[1rem] absolute flex flex-col left-[-25rem] top-[4rem];
+  }
+
+  .cart-dropdown::before {
+    @apply border-slate-300 border-t-[0.1rem] border-l-[0.1rem] content-[""] absolute top-[-1.5rem] right-[4.5rem] w-[3rem] h-[3rem] bg-[#FAFAFA] rotate-[45deg];
+  }
   .input {
     @apply rounded-full border border-stone-200 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-400 md:px-6 md:py-3;
   }
@@ -97,6 +104,54 @@
       var(--c) 100% 50%;
     background-size: 20% 50%;
     animation: loading 1s infinite linear;
+  }
+
+  .counter-content {
+    width: 42px;
+    user-select: none;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #4a4a4a;
+    box-sizing: border-box;
+    border: none;
+    border-top: solid 1px #e6e6e6;
+    border-bottom: solid 1px #e6e6e6;
+    background-color: #ffffff;
+    outline: none;
+    text-align: center;
+  }
+
+  .counter-button {
+    border: 1px solid #e6e6e6;
+    background-color: #fafafa;
+    width: 24px;
+    height: 34px;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .cart-dropdown {
+    user-select: none;
+    animation: slideDown 300ms ease-in-out forwards;
+  }
+
+  @keyframes slideDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-60px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @keyframes loading {
