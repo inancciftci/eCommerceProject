@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loginUser, selectUser } from "./userSlice";
 import Loader from "../../ui/Loader";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const LoginForm = () => {
   const location = useLocation();
@@ -24,11 +24,17 @@ const LoginForm = () => {
     dispatch(loginUser(loginData))
       .unwrap()
       .then(() => {
+        toast.success("You've successfully logged in", {
+          theme: "dark",
+          className: "toast-message",
+        });
         location.state ? navigate(location.state.pathname) : navigate("/");
-        console.log("Successfully logged in");
       })
       .catch(() => {
-        alert("Login failed. Please check your username and password.");
+        toast.error("Login failed. Please check your username and password.", {
+          theme: "dark",
+          className: "toast-message",
+        });
       });
   };
   return (
