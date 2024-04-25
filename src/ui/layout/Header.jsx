@@ -6,6 +6,7 @@ import { selectUser } from "../../features/authentication/userSlice";
 import LoginRegister from "../LoginRegister";
 import UserAvatar from "../../features/authentication/UserAvatar";
 import HeaderTop from "../HeaderTop";
+import CartDropdown from "../../features/cart/CartDropdown";
 
 const Header = () => {
   const user = useSelector(selectUser).token;
@@ -49,9 +50,7 @@ const Header = () => {
                 <li className="text-[1.4rem] cursor-pointer">
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </li>
-                <li className="text-[1.4rem] cursor-pointer">
-                  <i className="fa-solid fa-cart-shopping"></i>
-                </li>
+                <CartDropdown />
                 <li className="text-[1.4rem] cursor-pointer">
                   <i className="fa-solid fa-heart"></i>
                 </li>
