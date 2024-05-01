@@ -6,6 +6,7 @@ import {
 import ProductCard from "../features/products/ProductCard";
 import { useEffect } from "react";
 import MiniLoader from "./MiniLoader";
+import BestSellers from "../features/products/BestSellers";
 
 export default function FeaturedProducts() {
   const dispatch = useDispatch();
@@ -20,23 +21,7 @@ export default function FeaturedProducts() {
         <h3 className="uppercase">Bestseller Products</h3>
         <p>Problems trying to resolve the conflict between</p>
       </div>
-      {!featuredProducts.length ? (
-        <div
-          className="w-[100%] h-[30rem] flex justify-center items-center
-      ]"
-        >
-          <MiniLoader />
-        </div>
-      ) : (
-        <div className="my-[3rem] container mx-auto">
-          <div className="flex gap-[3rem] flex-wrap justify-between max-sm:p-[3rem]">
-            {featuredProducts &&
-              featuredProducts?.map((product) => (
-                <ProductCard product={product} key={product.id} />
-              ))}
-          </div>
-        </div>
-      )}
+      <BestSellers />
     </>
   );
 }

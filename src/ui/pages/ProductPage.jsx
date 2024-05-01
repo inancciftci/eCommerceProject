@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import ProductCard from "../../features/products/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProduct,
@@ -8,9 +7,10 @@ import {
 } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import MiniLoader from "../MiniLoader";
+import BestSellers from "../../features/products/BestSellers";
 
 export default function ProductPage() {
-  const { productId, productName, category } = useParams();
+  const { productId } = useParams();
   const dispatch = useDispatch();
   const bestSellerProducts = useSelector(selectBestSellers);
   const product = useSelector(selecetCurrentProduct);
@@ -19,7 +19,7 @@ export default function ProductPage() {
     dispatch(fetchProduct(productId));
   }, [productId, dispatch]);
 
-  const stars = Math.floor(product?.rating);
+  const stars = Math.ceil(product?.rating);
   const starsComp = [];
   for (let i = 0; i < 5; i++) {
     if (i < stars) {
@@ -160,9 +160,7 @@ export default function ProductPage() {
             <h3 className="uppercase">bestseller products</h3>
             <hr className="my-[2rem]" />
             <div className="w-[100%] flex flex-wrap gap-[2rem]">
-              {bestSellerProducts.map((product) => (
-                <ProductCard key={product?.id} product={product} />
-              ))}
+              <BestSellers />
             </div>
           </div>
         </div>
