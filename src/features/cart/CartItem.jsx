@@ -1,7 +1,11 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllCategories } from "../../app/globalSlice";
-import { decrementQuantity, incrementQuantity } from "./cartSlice";
+import {
+  decrementQuantity,
+  deleteProduct,
+  incrementQuantity,
+} from "./cartSlice";
 
 const CartItem = ({ product }) => {
   const dispatch = useDispatch();
@@ -18,6 +22,10 @@ const CartItem = ({ product }) => {
       dispatch(decrementQuantity(product));
       console.log("decrement");
     }
+  };
+
+  const handleDeleteProduct = (product) => {
+    dispatch(deleteProduct(product));
   };
   return (
     <div className="flex gap-[1.5rem] items-center border-[1px] p-[1rem]">
@@ -56,11 +64,14 @@ const CartItem = ({ product }) => {
           </button>
         </div>
         <div className="text-right flex flex-col gap-[0.3rem]">
-          <button className="text-[1rem] font-[300] text-slate-400">
+          <button
+            onClick={() => handleDeleteProduct(product)}
+            className="text-[1rem] font-[300] text-slate-400"
+          >
             <i className="fa-solid fa-trash-can mr-[0.3rem]"></i>Remove Item
           </button>
           <h5 className="text-[#6074c2]">
-            {product.product.price * product.quantity} TL
+            {(product.product.price * product.quantity).toFixed(2)} TL
           </h5>
         </div>
       </div>

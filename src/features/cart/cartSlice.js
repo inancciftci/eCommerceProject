@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
-// Retrieve cart data from localStorage
 const storedCart = localStorage.getItem("cart");
 const initialState = {
   cart: storedCart ? JSON.parse(storedCart) : [],
@@ -28,39 +27,53 @@ export const cartSlice = createSlice({
       }
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
+    deleteProduct(state, action) {
+      const filteredCart = state.cart.filter(
+        (item) => item.product.id !== action.payload.product.id
+      );
+      console.log("payload:", action.payload);
+      console.log(state.cart);
+      localStorage.setItem("cart", JSON.stringify(filteredCart));
+      console.log(filteredCart, action.payload);
+      return {
+        ...state,
+        cart: filteredCart,
+      };
+    },
     incrementQuantity(state, action) {
       const existingProductIndex = state.cart.findIndex(
-        (item) => item.product.id === action.payload.id
+        (item) => item.product.id === action.payload.product.id
       );
       if (existingProductIndex !== -1) {
-        const updatedCart = [...state.cart]; // Create a copy of the cart array
-        updatedCart[existingProductIndex] = {
-          ...updatedCart[existingProductIndex], // Copy the existing product object
-          quantity: updatedCart[existingProductIndex].quantity + 1, // Update the quantity
-        };
-        return { ...state, cart: updatedCart }; // Return the updated state
+        state.cart[existingProductIndex].quantity++;
+        localStorage.setItem("cart", JSON.stringify(state.cart));
       }
-      return state; // Return the original state if product not found
     },
-
     decrementQuantity(state, action) {
       const existingProductIndex = state.cart.findIndex(
-        (item) => item.product.id === action.payload.id
+        (item) => item.product.id === action.payload.product.id
       );
       if (existingProductIndex !== -1) {
-        const updatedCart = [...state.cart]; // Create a copy of the cart array
-        updatedCart[existingProductIndex] = {
-          ...updatedCart[existingProductIndex], // Copy the existing product object
-          quantity: updatedCart[existingProductIndex].quantity - 1, // Update the quantity
-        };
-        return { ...state, cart: updatedCart }; // Return the updated state
+        if (state.cart[existingProductIndex].quantity > 1) {
+          state.cart[existingProductIndex].quantity--;
+          localStorage.setItem("cart", JSON.stringify(state.cart));
+        } else {
+          const filteredCart = state.cart.filter(
+            (item) => item.product.id !== action.payload.id
+          );
+          state.cart = filteredCart;
+          localStorage.setItem("cart", JSON.stringify(state.cart));
+        }
       }
-      return state; // Return the original state if product not found
     },
   },
 });
 
 export const selectCartItems = (state) => state.cart.cart;
-export const { addProduct, incrementQuantity, decrementQuantity } =
-  cartSlice.actions;
+export const {
+  addProduct,
+  incrementQuantity,
+  decrementQuantity,
+  deleteProduct,
+} = cartSlice.actions;
 export default cartSlice.reducer;
