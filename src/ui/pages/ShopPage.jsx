@@ -8,6 +8,7 @@ import {
   fetchProducts,
   selectActivePage,
   selectAllProducts,
+  selectLoadingState,
   selectProductTotal,
 } from "../../features/products/productsSlice";
 import ProductCard from "../../features/products/ProductCard";
@@ -17,6 +18,7 @@ import { useEffect } from "react";
 
 const ShopPage = () => {
   const dispatch = useDispatch();
+  const productsLoading = useSelector(selectLoadingState);
   const categories = useSelector(selectAllCategories);
   const activePage = useSelector(selectActivePage);
   const totalProducts = useSelector(selectProductTotal);
@@ -112,7 +114,7 @@ const ShopPage = () => {
             </button>
           </div>
         </div>
-        {!products.length ? (
+        {productsLoading && !products.length ? (
           <MiniLoader />
         ) : (
           <InfiniteScroll
@@ -130,6 +132,13 @@ const ShopPage = () => {
             loader={<MiniLoader />}
             className="flex gap-[3rem] w-[100%] flex-wrap justify-between max-sm:p-[3rem]"
           >
+            {products.length < 1 ? (
+              <div className="flex flex-col justify-center items-center text-center">
+                <p className="text-center">
+                  This category has no products. Please chose another category
+                </p>
+              </div>
+            ) : null}
             {products?.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
