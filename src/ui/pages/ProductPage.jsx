@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProduct,
   selecetCurrentProduct,
-  selectBestSellers,
 } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import MiniLoader from "../MiniLoader";
@@ -12,9 +11,7 @@ import BestSellers from "../../features/products/BestSellers";
 export default function ProductPage() {
   const { productId } = useParams();
   const dispatch = useDispatch();
-  const bestSellerProducts = useSelector(selectBestSellers);
   const product = useSelector(selecetCurrentProduct);
-  console.log(product);
   useEffect(() => {
     dispatch(fetchProduct(productId));
   }, [productId, dispatch]);
@@ -24,11 +21,17 @@ export default function ProductPage() {
   for (let i = 0; i < 5; i++) {
     if (i < stars) {
       starsComp.push(
-        <i className="fa-solid fa-star text-[#F3CD03] text-[1.4rem]"></i>
+        <i
+          key={starsComp.length}
+          className="fa-solid fa-star text-[#F3CD03] text-[1.4rem]"
+        ></i>
       );
     } else {
       starsComp.push(
-        <i className="fa-regular fa-star text-[#F3CD03] text-[1.4rem]"></i>
+        <i
+          key={starsComp.length}
+          className="fa-regular fa-star text-[#F3CD03] text-[1.4rem]"
+        ></i>
       );
     }
   }
