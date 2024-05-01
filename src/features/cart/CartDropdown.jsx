@@ -24,10 +24,20 @@ const CartDropdown = () => {
           : cartItems.map((item) => (
               <DropDownItem key={item.product.id} product={item} />
             ))}
-        <Link onClick={clickHandler} to="/cart">
-          &gt;&gt; Cart Page
-        </Link>
-        <button onClick={clickHandler}>X</button>
+        {cartItems.length < 1 ? null : (
+          <div className="flex justify-center items-center gap-[1rem]">
+            <Link onClick={clickHandler} to="/cart">
+              <button className="border-[1px] border-blue-500 text-blue-500 text-center py-[1rem] px-[3rem] rounded-md shadow-md">
+                Cart Page
+              </button>
+            </Link>
+            <Link onClick={clickHandler} to="/cart">
+              <button className="bg-blue-500 text-white text-center py-[1rem] px-[3rem] rounded-md shadow-md">
+                Check out
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
