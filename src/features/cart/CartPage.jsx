@@ -39,7 +39,7 @@ const CartPage = () => {
           : null}
       </div>
       <div className="w-[30%] h-[10rem] sticky top-[1rem] flex flex-col gap-[1rem] items-center">
-        <button className="bg-[#252B42] text-white font-[500] text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center">
+        <button className="bg-blue-500 text-white font-[500] text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center">
           <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
         </button>
         <div className="w-[70%] flex flex-col gap-[1.5rem] border-[1px] rounded-md border-slate-300 p-[1rem]">
@@ -76,7 +76,7 @@ const CartPage = () => {
           </div>
         </div>
 
-        <button className="bg-[#252B42] text-white font-[500] text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center">
+        <button className="bg-blue-500 text-white font-[500] text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center">
           <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
         </button>
       </div>
