@@ -18,11 +18,13 @@ export const cartSlice = createSlice({
         state.cart[existingProductIndex].quantity++;
         toast.info(`${action.payload.name} quantity updated.`, {
           className: "toast-message",
+          position: "bottom-right",
         });
       } else {
         state.cart.push({ product: action.payload, quantity: 1 });
         toast.success(`${action.payload.name} added to cart.`, {
           className: "toast-message",
+          position: "bottom-right",
         });
       }
       localStorage.setItem("cart", JSON.stringify(state.cart));
