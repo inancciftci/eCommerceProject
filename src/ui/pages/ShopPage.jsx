@@ -24,6 +24,7 @@ const ShopPage = () => {
   const totalProducts = useSelector(selectProductTotal);
   const products = useSelector(selectAllProducts);
   const [searchParams, setSearchParams] = useSearchParams();
+  const currentParams = Object.fromEntries([...searchParams]);
   const filter = searchParams.get("filter");
   const currentURL = window.location.href.split("shop");
   let urlToFetch;
@@ -48,7 +49,8 @@ const ShopPage = () => {
 
   const paramHandler = (e) => {
     const { name, value } = e.target;
-    const currentParams = Object.fromEntries([...searchParams]);
+    console.log(value);
+    console.log(currentParams);
     const newParams = { ...currentParams, [name]: value };
     setSearchParams(newParams);
   };
@@ -79,7 +81,7 @@ const ShopPage = () => {
           className="flex items-center justify-between pb-[2rem]"
         >
           <p className="font-[400]">Total products listed: {products.length}</p>
-          <div className="flex gap-[1rem]">
+          <div>
             <input
               className="border-[1px] border-[slate-100] p-[1rem] text-[1.4rem] rounded-[5rem]"
               type="text"
@@ -88,30 +90,69 @@ const ShopPage = () => {
               value={filter || ""}
               placeholder="enter a filter"
             />
-            <button
-              onClick={paramHandler}
-              className="bg-[#23A6F0] rounded-[3rem] text-white p-[1rem]"
-              name="sort"
-              value={"price:asc"}
-            >
-              price asc
-            </button>
-            <button
-              onClick={paramHandler}
-              className="bg-[#23A6F0] rounded-[3rem] text-white p-[1rem]"
-              name="sort"
-              value={"price:desc"}
-            >
-              price desc
-            </button>
-            <button
-              onClick={paramHandler}
-              className="bg-[#23A6F0] rounded-[3rem] text-white p-[1rem]"
-              name="sort"
-              value="rating:desc"
-            >
-              rating
-            </button>
+          </div>
+          <div className="flex items-center gap-[5rem]">
+            <div className="flex flex-col justify-center items-center">
+              <span className="font-[100] uppercase  text-[1.4rem]">
+                Price
+              </span>
+              <div className="flex gap-[0.5rem] items-center">
+                <button
+                  onClick={paramHandler}
+                  className={
+                    currentParams.sort == "price:asc"
+                      ? "border-[1px] bg-slate-500 px-[1rem] py-[0.5rem] rounded-[50%] text-[1.6rem] text-white"
+                      : "border-[1px] px-[1rem] py-[0.5rem] rounded-[50%] text-[1.6rem] bg-slate-300 text-white"
+                  }
+                  name="sort"
+                  value={"price:asc"}
+                >
+                  ↑
+                </button>
+                <button
+                  onClick={paramHandler}
+                  className={
+                    currentParams.sort == "price:desc"
+                      ? "border-[1px] bg-slate-500 px-[1rem] py-[0.5rem] rounded-[50%] text-[1.6rem] text-white"
+                      : "border-[1px] px-[1rem] py-[0.5rem] rounded-[50%] text-[1.6rem] bg-slate-300 text-white"
+                  }
+                  name="sort"
+                  value="price:desc"
+                >
+                  ↓
+                </button>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <span className="font-[500] text-[1.4rem]">Rating</span>
+              <div className="flex gap-[0.5rem] items-center">
+                <button
+                  onClick={paramHandler}
+                  className={
+                    currentParams.sort == "rating:asc"
+                      ? "border-[1px] bg-slate-500 px-[1rem] py-[0.5rem] rounded-[50%] text-[1.6rem] text-white"
+                      : "border-[1px] px-[1rem] py-[0.5rem] rounded-[50%] text-[1.6rem] bg-slate-300 text-white"
+                  }
+                  name="sort"
+                  value={"rating:asc"}
+                >
+                  ↑
+                </button>
+                <button
+                  onClick={paramHandler}
+                  className={
+                    currentParams.sort == "rating:desc"
+                      ? "border-[1px] bg-slate-500 px-[1rem] py-[0.5rem] rounded-[50%] text-[1.6rem] text-white"
+                      : "border-[1px] px-[1rem] py-[0.5rem] rounded-[50%] text-[1.6rem] bg-slate-300 text-white"
+                  }
+                  name="sort"
+                  value="rating:desc"
+                >
+                  ↓
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         {productsLoading && !products.length ? (
@@ -133,9 +174,9 @@ const ShopPage = () => {
             className="flex gap-[3rem] w-[100%] flex-wrap justify-between max-sm:p-[3rem]"
           >
             {products.length < 1 ? (
-              <div className="flex flex-col justify-center items-center text-center">
-                <p className="text-center">
-                  This category has no products. Please chose another category
+              <div className="flex flex-col justify-center items-center text-center w-[100%] min-h-[15rem] bg-red-300 text-white">
+                <p className="text-center text-[2.4rem]">
+                  This category has no products. Please chose another category.
                 </p>
               </div>
             ) : null}
