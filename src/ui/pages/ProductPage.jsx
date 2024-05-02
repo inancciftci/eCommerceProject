@@ -71,7 +71,7 @@ export default function ProductPage() {
                   />
                 </div>
               </div>
-              <div className="flex-1 flex flex-col justify-between gap-[2rem] px-[2rem] max-md:px-0">
+              <div className="flex-1 flex flex-col justify-center gap-[2rem] px-[2rem] max-md:px-0">
                 <div>
                   <h4 className="font-bold">Floating Phone</h4>
                   <div className="flex items-center gap-[0.5rem]">
