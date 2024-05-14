@@ -93,9 +93,7 @@ const ShopPage = () => {
           </div>
           <div className="flex items-center gap-[5rem]">
             <div className="flex flex-col justify-center items-center">
-              <span className="font-[100] uppercase  text-[1.4rem]">
-                Price
-              </span>
+              <span className="font-[100] uppercase  text-[1.4rem]">Price</span>
               <div className="flex gap-[0.5rem] items-center">
                 <button
                   onClick={paramHandler}
@@ -167,7 +165,6 @@ const ShopPage = () => {
                   params: urlToFetch,
                 })
               );
-              // console.log(urlToFetch);
             }}
             hasMore={activePage * 24 < totalProducts ? true : false}
             loader={<MiniLoader />}
