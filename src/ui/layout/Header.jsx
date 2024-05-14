@@ -7,6 +7,7 @@ import LoginRegister from "../LoginRegister";
 import UserAvatar from "../../features/authentication/UserAvatar";
 import HeaderTop from "../HeaderTop";
 import CartDropdown from "../../features/cart/CartDropdown";
+import ShopDropDown from "../ShopDropDown";
 
 const Header = () => {
   const user = useSelector(selectUser).token;
@@ -18,9 +19,11 @@ const Header = () => {
   useEffect(() => {
     setShowMenu(false);
   }, [location]);
+
   return (
     <header>
       <HeaderTop />
+
       <div className="container mx-auto py-[2rem] flex max-md:hidden">
         <div className="flex justify-between items-center gap-[3rem] w-[100%] max-md:hidden">
           <Link to="/" className="text-[2.4rem] font-[700]">
@@ -31,9 +34,7 @@ const Header = () => {
               <Link to="/" className="font-[500]">
                 Home
               </Link>
-              <Link to="/shop" className="font-[500]">
-                Shop
-              </Link>
+              <ShopDropDown />
               <Link to="/about" className="font-[500]">
                 About
               </Link>
