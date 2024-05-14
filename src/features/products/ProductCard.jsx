@@ -15,8 +15,9 @@ export default function ProductCard({ product }) {
   const addToCartHandler = (product) => {
     dispatch(addProduct(product));
   };
+
   return (
-    <div className="bg-[#fffff] flex flex-col flex-auto w-[25rem] max-sm:w-[17rem] rounded-b-[1rem] overflow-hidden shadow-lg">
+    <div className="bg-[#fffff] flex flex-col flex-auto w-[25rem] max-sm:w-[17rem] rounded-b-[1rem] overflow-hidden shadow-lg transition-all hover:translate-y-[1rem] cursor-pointer">
       <div id="img-box" className="max-h-[35rem] relative overflow-hidden">
         <img
           className=" object-cover max-h-[35rem] object-top w-[100%] rounded-t-[1rem]"
@@ -64,11 +65,11 @@ export default function ProductCard({ product }) {
               <i className="fa-regular fa-star text-yellow-600"></i>
               {product?.rating} out of 5
             </span>
-            <h5 className="text-[#23856d] font-bold">{product?.price} ₺</h5>
+            <h5 className="text-[#2b4f88] font-bold">{product?.price} ₺</h5>
           </Link>
-          <div className="">
+          {/* <div className="">
             <p>{product?.description}</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
