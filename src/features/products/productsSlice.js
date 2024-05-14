@@ -111,6 +111,12 @@ export const productsSlice = createSlice({
   },
   extraReducers(builder) {
     builder
+      .addCase(fetchProducts.pending, (state) => {
+        return {
+          ...state,
+          isLoading: true,
+        };
+      })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         return {
           ...state,
@@ -118,6 +124,7 @@ export const productsSlice = createSlice({
           total: action.payload.total,
           activePage: 1,
           pageCount: Math.ceil(action.payload.total / 24),
+          isLoading: false,
         };
       })
       .addCase(fetchProduct.pending, (state) => {
