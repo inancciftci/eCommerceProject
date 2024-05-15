@@ -7,6 +7,7 @@ import {
 import { useEffect } from "react";
 import MiniLoader from "../MiniLoader";
 import BestSellers from "../../features/products/BestSellers";
+import Accordion from "../Accordion";
 
 export default function ProductPage() {
   const { productId } = useParams();
@@ -73,7 +74,7 @@ export default function ProductPage() {
               </div>
               <div className="flex-1 flex flex-col justify-center gap-[2rem] px-[2rem] max-md:px-0">
                 <div>
-                  <h4 className="font-bold">Floating Phone</h4>
+                  <h4 className="font-bold">{product?.name}</h4>
                   <div className="flex items-center gap-[0.5rem]">
                     {starsComp.map((e) => e)}
                     <p className="ml-[1rem] font-[400]">{product?.rating}</p>
@@ -153,8 +154,16 @@ export default function ProductPage() {
             <div className="flex-1 flex flex-col justify-between">
               <h3>the quick fox jumps over</h3>
 
+              <Accordion />
+              <Accordion />
+              <Accordion />
+              <Accordion />
               <hr />
               <h3>the quick fox jumps over</h3>
+              <Accordion />
+              <Accordion />
+              <Accordion />
+              <Accordion />
             </div>
           </div>
         </div>
