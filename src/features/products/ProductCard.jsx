@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { selectAllCategories } from "../../app/globalSlice";
 import { scrollLower, scrollTop, trToEn } from "../helperutils";
 import { addProduct } from "../cart/cartSlice";
 
 export default function ProductCard({ product }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const categories = useSelector(selectAllCategories);
   const currentCategory = categories.find(
     (item) => item.id === product.category_id
@@ -16,10 +17,18 @@ export default function ProductCard({ product }) {
     dispatch(addProduct(product));
   };
 
+  const navigateHandler = () => {
+    navigate(
+      `/product/${currentCategory?.title}/${product?.id}/${product?.name}`
+    );
+    scrollTop();
+  };
+
   return (
     <div className="bg-[#fffff] flex flex-col flex-auto w-[25rem] max-sm:w-[17rem] rounded-b-[1rem] overflow-hidden shadow-lg transition-all hover:translate-y-[1rem] cursor-pointer">
       <div id="img-box" className="max-h-[35rem] relative overflow-hidden">
         <img
+          onClick={navigateHandler}
           className=" object-cover max-h-[35rem] object-top w-[100%] rounded-t-[1rem]"
           src={product.images[0]?.url}
           alt=""
