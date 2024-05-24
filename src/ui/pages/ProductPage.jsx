@@ -25,14 +25,14 @@ export default function ProductPage() {
         <i
           key={starsComp.length}
           className="fa-solid fa-star text-[#F3CD03] text-[1.4rem]"
-        ></i>
+        ></i>,
       );
     } else {
       starsComp.push(
         <i
           key={starsComp.length}
           className="fa-regular fa-star text-[#F3CD03] text-[1.4rem]"
-        ></i>
+        ></i>,
       );
     }
   }

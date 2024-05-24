@@ -11,7 +11,7 @@ const CartItem = ({ product }) => {
   const dispatch = useDispatch();
   const categories = useSelector(selectAllCategories);
   const category = categories.find(
-    (item) => item.id === product.product.category_id
+    (item) => item.id === product.product.category_id,
   );
   const quantityHandler = (e) => {
     if (e.target.name === "+") {
