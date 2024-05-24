@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_URL } from "../../app/api";
+import { toast } from "react-toastify";
 
 const initialState = {
   name: "",
@@ -73,6 +74,10 @@ export const userSlice = createSlice({
         return { ...state, isLoading: true };
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        toast.success(`You have successfully logged in`, {
+          className: "toast-message",
+          position: "top-right",
+        });
         return {
           ...state,
           email: action.payload.email,
@@ -83,6 +88,10 @@ export const userSlice = createSlice({
         };
       })
       .addCase(loginUser.rejected, (state) => {
+        toast.error("Login failed. Please check your username and password.", {
+          theme: "dark",
+          className: "toast-message",
+        });
         return {
           ...state,
           isLoading: false,

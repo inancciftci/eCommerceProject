@@ -24,17 +24,7 @@ const LoginForm = () => {
     dispatch(loginUser(loginData))
       .unwrap()
       .then(() => {
-        toast.success("You've successfully logged in", {
-          theme: "dark",
-          className: "toast-message",
-        });
         location.state ? navigate(location.state.pathname) : navigate("/");
-      })
-      .catch(() => {
-        toast.error("Login failed. Please check your username and password.", {
-          theme: "dark",
-          className: "toast-message",
-        });
       });
   };
   return (
