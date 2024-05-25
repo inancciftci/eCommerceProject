@@ -12,10 +12,8 @@ store.dispatch(fetchRoles());
 store.dispatch(fecthCategories());
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-      <ToastContainer />
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <App />
+    <ToastContainer />
+  </Provider>
 );
