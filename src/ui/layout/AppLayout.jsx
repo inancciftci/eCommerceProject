@@ -11,7 +11,7 @@ const AppLayout = () => {
       <div className="">
         {isLoading && <Loader />}
         <Header />
-        <main>
+        <main className=" max-md:pt-[8.5rem]">
           <Outlet />
         </main>
         <Footer />

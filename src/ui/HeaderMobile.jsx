@@ -1,11 +1,19 @@
 /* eslint-disable react/prop-types */
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectCartItems } from "../features/cart/cartSlice";
+import { selectUser } from "../features/authentication/userSlice";
+import UserAvatar from "../features/authentication/UserAvatar";
 
 const HeaderMobile = ({ showMenu, menuToggle }) => {
+  const cartItems = useSelector(selectCartItems);
+  const totalItems = cartItems?.length;
+  const user = useSelector(selectUser);
+  console.log("user:", user);
   return (
     <div
       id="mobile-menu"
-      className="hidden max-md:flex py-[2rem] px-[1rem] justify-between w-[100%] relative"
+      className="hidden max-md:flex py-[2rem] px-[1rem] justify-between w-[100%] fixed top-0 z-[5000] bg-[rgba(255,255,255,0.9)]"
     >
       <div
         className={
@@ -48,15 +56,25 @@ const HeaderMobile = ({ showMenu, menuToggle }) => {
       </div>
       <ul className="flex items-center gap-[2rem] text-[#252B42]">
         <li className="text-[1.4rem] cursor-pointer flex gap-[1rem] items-center">
-          <Link to="/login">
-            <i className="fa-solid fa-user"></i>
-          </Link>
+          {user?.token ? (
+            <UserAvatar />
+          ) : (
+            <Link to="login">
+              {" "}
+              <i className="fa-solid fa-user"></i>
+            </Link>
+          )}
         </li>
         <li className="text-[1.4rem] cursor-pointer">
           <i className="fa-solid fa-magnifying-glass"></i>
         </li>
-        <li className="text-[1.4rem] cursor-pointer">
-          <i className="fa-solid fa-cart-shopping"></i>
+        <li className="text-[1.4rem] cursor-pointer relative">
+          <Link to="/cart">
+            <i className="fa-solid fa-cart-shopping"></i>
+            <div className="w-[2.2rem] h-[2.2rem] rounded-[50%] flex justify-center items-center absolute bg-[rgba(59,130,246,0.4)] text-white text-[1.2rem] font-bold top-[1rem] left-[0.5rem]">
+              {totalItems}
+            </div>
+          </Link>
         </li>
         <li className="text-[1.4rem] cursor-pointer">
           <i className="fa-solid fa-heart"></i>
