@@ -18,7 +18,9 @@ const UserAvatar = () => {
         //   src={getUserAvatarURL(userInfo?.email)}
       />
       <p className="text-[1.6rem] max-md:hidden">{userInfo?.name}</p>
-      <button onClick={() => dispatch(logoutUser())}>X</button>
+      <button className="max-md:hidden" onClick={() => dispatch(logoutUser())}>
+        X
+      </button>
     </div>
   );
 };
