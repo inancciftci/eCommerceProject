@@ -80,7 +80,6 @@ const ShopPage = () => {
           id="product-filters"
           className="flex items-center justify-between pb-[2rem]"
         >
-          <p className="font-[400]">Total products listed: {products.length}</p>
           <div>
             <input
               className="border-[1px] border-[slate-100] p-[1rem] text-[1.4rem] rounded-[5rem]"
