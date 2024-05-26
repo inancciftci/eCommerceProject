@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 
 const storedCart = localStorage.getItem("cart");
 const initialState = {
@@ -18,13 +18,16 @@ export const cartSlice = createSlice({
         state.cart[existingProductIndex].quantity++;
         toast.info(`${action.payload.name} quantity updated.`, {
           className: "toast-message",
-          position: "bottom-right",
+          position: "top-left",
+          autoClose: 750,
         });
       } else {
         state.cart.push({ product: action.payload, quantity: 1 });
         toast.success(`${action.payload.name} added to cart.`, {
           className: "toast-message",
-          position: "bottom-right",
+          position: "top-left",
+          autoClose: 750,
+          transition: Bounce,
         });
       }
       localStorage.setItem("cart", JSON.stringify(state.cart));
