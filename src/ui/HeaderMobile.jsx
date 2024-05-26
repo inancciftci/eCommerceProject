@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { selectCartItems } from "../features/cart/cartSlice";
 import { selectUser } from "../features/authentication/userSlice";
 import UserAvatar from "../features/authentication/UserAvatar";
+import { scrollTop } from "../features/helperutils";
 
 const HeaderMobile = ({ showMenu, menuToggle }) => {
   const cartItems = useSelector(selectCartItems);
@@ -68,7 +69,7 @@ const HeaderMobile = ({ showMenu, menuToggle }) => {
           <i className="fa-solid fa-magnifying-glass"></i>
         </li>
         <li className="text-[1.4rem] cursor-pointer relative">
-          <Link to="/cart">
+          <Link onClick={scrollTop} to="/cart">
             <i className="fa-solid fa-cart-shopping"></i>
             <div className="w-[2.2rem] h-[2.2rem] rounded-[50%] flex justify-center items-center absolute bg-[rgba(59,130,246,0.4)] text-white text-[1.2rem] font-bold top-[1rem] left-[0.5rem]">
               {totalItems}
