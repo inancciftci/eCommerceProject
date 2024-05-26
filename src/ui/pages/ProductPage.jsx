@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import MiniLoader from "../MiniLoader";
 import BestSellers from "../../features/products/BestSellers";
 import Accordion from "../Accordion";
+import { addProduct } from "../../features/cart/cartSlice";
 
 export default function ProductPage() {
   const { productId } = useParams();
@@ -17,6 +18,10 @@ export default function ProductPage() {
     dispatch(fetchProduct(productId));
   }, [productId, dispatch]);
 
+  const addToCartHandler = (product) => {
+    dispatch(addProduct(product));
+  };
+
   const stars = Math.ceil(product?.rating);
   const starsComp = [];
   for (let i = 0; i < 5; i++) {
@@ -25,14 +30,14 @@ export default function ProductPage() {
         <i
           key={starsComp.length}
           className="fa-solid fa-star text-[#F3CD03] text-[1.4rem]"
-        ></i>,
+        ></i>
       );
     } else {
       starsComp.push(
         <i
           key={starsComp.length}
           className="fa-regular fa-star text-[#F3CD03] text-[1.4rem]"
-        ></i>,
+        ></i>
       );
     }
   }
@@ -81,14 +86,16 @@ export default function ProductPage() {
                   </div>
                 </div>
 
-                <h5 className="text-[2.4rem] font-bold">₺{product?.price}</h5>
+                <h5 className="max-md:hidden text-[2.4rem] font-bold">
+                  ₺{product?.price}
+                </h5>
                 <div className="flex gap-[1rem]">
                   <h6 className="font-[500]">Availability: </h6>
                   <h6 className="text-[#23A6F0] font-[500]">In Stock</h6>
                 </div>
                 <p>{product?.description}</p>
-                <hr className="my-[3rem]" />
-                <div className="flex gap-[1rem]">
+                <hr className="my-[3rem] max-md:hidden" />
+                <div className="flex gap-[1rem] max-md:hidden">
                   {colorOptions.map((e, i) => (
                     <div
                       key={i}
@@ -98,18 +105,30 @@ export default function ProductPage() {
                     ></div>
                   ))}
                 </div>
-                <div className="flex items-center gap-[1.5rem]">
+                <div className="flex items-center gap-[1.5rem] max-md:hidden">
                   <button className="text-[1.4rem] px-[2.5rem] py-[1.5rem] rounded-[0.5rem] bg-[#23A6F0] text-white">
-                    Select Options
+                    <i className="fa-solid fa-cart-shopping"></i> Add to cart
                   </button>
                   <button className="bg-white border-[1px] border-[solid] border-[black] w-[4rem] h-[4rem] rounded-[50%] flex justify-center items-center  hover:bg-[#252b42] hover:text-white duration-200">
                     <i className="fa-solid fa-heart"></i>
                   </button>
-                  <button className="bg-white border-[1px] border-[solid] border-[black] w-[4rem] h-[4rem] rounded-[50%] flex justify-center items-center hover:bg-[#252b42] hover:text-white duration-200">
-                    <i className="fa-solid fa-cart-shopping"></i>
-                  </button>
-                  <button className="bg-white border-[1px] border-[solid] border-[black] w-[4rem] h-[4rem] rounded-[50%] flex justify-center items-center hover:bg-[#252b42] hover:text-white duration-200">
-                    <i className="fa-solid fa-eye"></i>
+                </div>
+                <div className="hidden z-[1000] max-md:flex justify-between items-center fixed bottom-0 left-0 bg-white min-w-[100%] px-[2rem] py-[2rem] border-t-[1px] border-slate-300">
+                  <div className="flex flex-col">
+                    <p className="text-[1.1rem]">
+                      🔥 Currently {Math.floor(Math.random() * 250)} people
+                      watching this.
+                    </p>
+                    <h5 className="text-[2rem] font-bold">
+                      {product?.price} TL
+                    </h5>
+                  </div>
+
+                  <button
+                    onClick={() => addToCartHandler(product)}
+                    className="text-[1.4rem] px-[2.5rem] py-[1.5rem] rounded-[0.5rem] bg-[#23A6F0] text-white"
+                  >
+                    <i className="fa-solid fa-cart-shopping"></i> Add to cart
                   </button>
                 </div>
               </div>
