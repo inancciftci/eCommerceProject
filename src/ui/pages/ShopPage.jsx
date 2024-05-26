@@ -168,7 +168,7 @@ const ShopPage = () => {
             }}
             hasMore={activePage * 24 < totalProducts ? true : false}
             loader={<MiniLoader />}
-            className="flex gap-[3rem] w-[100%] flex-wrap justify-between max-sm:p-[3rem]"
+            className="flex gap-[3rem] w-[100%] flex-wrap justify-between max-md:px-[0.5rem]"
           >
             {products.length < 1 ? (
               <div className="flex flex-col justify-center items-center text-center w-[100%] min-h-[15rem] bg-red-300 text-white">
