@@ -11,7 +11,6 @@ import ShopDropDown from "../ShopDropDown";
 
 const Header = () => {
   const user = useSelector(selectUser).token;
-  console.log(user);
   const [showMenu, setShowMenu] = useState(false);
   const menuToggle = () => {
     setShowMenu(!showMenu);

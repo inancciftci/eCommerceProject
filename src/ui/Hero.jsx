@@ -16,17 +16,17 @@ export default function Hero() {
           <h5 className="uppercase font-bold max-md:text-[1.6rem]">
             Summer Tag
           </h5>
-          <h1 className="max-md:text-[3.6rem] max-md:text-center">
+          <h1 className="max-md:text-[2rem] max-md:text-center">
             Multicoloured <br /> Tie-dye Sweater
           </h1>
-          <h4 className="max-md:text-[1.6rem]">
+          <h4 className="max-md:text-[1.2rem]">
             We know how large objects will act.
           </h4>
           <button className="hover:bg-[rgb(37,43,66)] hover:text-white duration-[200ms] p-[1rem] bg-transparent text-white w-[15rem] border-solid border-white border-[0.1rem]">
             Shop Now
           </button>
         </div>
-        <img className="w-[100%] h-[100%] object-cover" src="/hero-img.png" />
+        <img className="w-[100%]   object-cover" src="/hero-img.png" />
       </div>
     </div>
   );

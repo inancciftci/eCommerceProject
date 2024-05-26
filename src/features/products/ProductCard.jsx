@@ -25,7 +25,7 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <div className="bg-[#fffff] flex flex-col flex-auto w-[25rem] max-sm:w-[17rem] rounded-b-[1rem] overflow-hidden shadow-lg transition-all hover:translate-y-[1rem] cursor-pointer">
+    <div className="bg-[#fffff] flex flex-col flex-auto w-[25rem] max-sm:w-[40%] max-md:w-[40%] rounded-b-[1rem] overflow-hidden shadow-lg transition-all hover:translate-y-[1rem] cursor-pointer">
       <div id="img-box" className="max-h-[35rem] relative overflow-hidden">
         <img
           onClick={navigateHandler}
@@ -66,11 +66,11 @@ export default function ProductCard({ product }) {
         <div className="flex flex-col gap-[1rem]">
           <Link
             onClick={scrollTop}
-            className="flex flex-col gap-[1rem]"
+            className="flex flex-col gap-[1rem] max-md:text-[1.2rem]"
             to={`/product/${currentCategory?.title}/${product?.id}/${product?.name}`}
           >
-            <h5>{product?.name}</h5>
-            <span className="flex gap-[0.5rem] text-slate-500 font-[300] items-center">
+            <h5 className="max-md:text-[1.4rem]">{product?.name}</h5>
+            <span className="flex gap-[0.5rem] text-slate-500 font-[300] items-center max-md:text-[1rem]">
               <i className="fa-regular fa-star text-yellow-600"></i>
               {product?.rating} out of 5
             </span>

@@ -9,7 +9,6 @@ const HeaderMobile = ({ showMenu, menuToggle }) => {
   const cartItems = useSelector(selectCartItems);
   const totalItems = cartItems?.length;
   const user = useSelector(selectUser);
-  console.log("user:", user);
   return (
     <div
       id="mobile-menu"
