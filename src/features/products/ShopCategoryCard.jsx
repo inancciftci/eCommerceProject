@@ -16,11 +16,11 @@ const ShopCategoryCard = ({ category }) => {
   };
   // console.log(category);
   return (
-    <div className="w-[19%] ">
+    <div className="w-[19%] max-md:w-[100%]">
       <img
         src={category?.img}
         alt=""
-        className="object-cover w-[100%] h-[30rem] rounded-t-md"
+        className="object-cover w-[100%] h-[30rem] max-md:h-[10rem] rounded-t-md"
       />
       <div className="flex justify-between items-center w-[100%] border-[1px] p-[0.69rem] rounded-b-md bg-blue-100">
         <div className="flex flex-col gap-[0.1rem]">
