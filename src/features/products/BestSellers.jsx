@@ -22,7 +22,7 @@ const BestSellers = () => {
         </div>
       ) : (
         <div className="my-[3rem] container mx-auto">
-          <div className="flex gap-[3rem] flex-wrap justify-between max-sm:p-[1rem] max-md:p-[1rem]">
+          <div className="flex gap-[3rem] flex-wrap justify-between">
             {featuredProducts &&
               featuredProducts?.map((product) => (
                 <ProductCard product={product} key={product.id} />
