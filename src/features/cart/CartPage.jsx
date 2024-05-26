@@ -3,6 +3,7 @@ import { selectUser } from "../authentication/userSlice";
 import { Link } from "react-router-dom";
 import { selectCartItems } from "./cartSlice";
 import CartItem from "./CartItem";
+import BestSellers from "../products/BestSellers";
 
 const CartPage = () => {
   const user = useSelector(selectUser);
@@ -36,7 +37,13 @@ const CartPage = () => {
               <CartItem key={item.product.id} product={item} />
             ))
           : null}
+
+        <h3 className="mb-[-3rem] text-right max-md:text-center">
+          You may also like these 👇{" "}
+        </h3>
+        <BestSellers />
       </div>
+
       <div className="w-[30%] h-[10rem] sticky top-[1rem] flex flex-col gap-[1rem] items-center max-md:hidden">
         <button className="bg-blue-500 text-white font-[500] text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center">
           <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
@@ -79,7 +86,7 @@ const CartPage = () => {
           <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
         </button>
       </div>
-      <div className="hidden max-md:flex justify-between fixed bottom-0 bg-blue-500 bg-opacity-[0.95] min-w-[100%] px-[2rem] py-[2rem]">
+      <div className="hidden max-md:flex justify-between fixed bottom-0 bg-blue-500 min-w-[100%] px-[2rem] py-[2rem] border-t-[1px] border-slate-200">
         <div className="flex text-white w-[50%] items-center gap-[2rem]">
           <div>
             <i className="fa-solid fa-arrow-down text-[2rem] text-slate-300"></i>
