@@ -116,8 +116,11 @@ export default function ProductPage() {
                 <div className="hidden z-[1000] max-md:flex justify-between items-center fixed bottom-0 left-0 bg-white min-w-[100%] px-[2rem] py-[2rem] border-t-[1px] border-slate-300">
                   <div className="flex flex-col">
                     <p className="text-[1.1rem]">
-                      🔥 Currently {Math.floor(Math.random() * 250)} people
-                      watching this.
+                      🔥 Currently{" "}
+                      <span className="text-blue-400 font-bold">
+                        {Math.floor(Math.random() * 250)}
+                      </span>{" "}
+                      people on this page
                     </p>
                     <h5 className="text-[2rem] font-bold">
                       {product?.price} TL
@@ -152,7 +155,7 @@ export default function ProductPage() {
                 alt=""
               />
             </div>
-            <div className="flex-1 flex flex-col justify-between">
+            <div className="flex-1 flex flex-col gap-[1rem] justify-between">
               <h3>the quick fox jumps over</h3>
               <p className="text-[1.6rem]">
                 Met minim Mollie non desert Alamo est sit cliquey dolor do met
@@ -170,7 +173,7 @@ export default function ProductPage() {
                 Excitation venial consequent sent nostrum met.
               </p>
             </div>
-            <div className="flex-1 flex flex-col justify-between">
+            <div className="flex-1 flex flex-col justify-between max-md:hidden">
               <h3>the quick fox jumps over</h3>
 
               <Accordion />
