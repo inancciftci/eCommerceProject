@@ -14,12 +14,16 @@ const CartPage = () => {
   );
   const shippingPrice = 19.99;
   const finalTotal =
-    productsTotal > 150 ? productsTotal : productsTotal + shippingPrice;
+    cartItems?.length > 0
+      ? productsTotal > 150
+        ? productsTotal
+        : productsTotal + shippingPrice
+      : 0;
 
   return (
     <section className="container max-md:pr-0 max-md:pl-0 max-md:max-w-[100%] flex gap-[1rem] min-h-[45rem]">
       <div className="w-[70%] flex flex-col gap-[1rem] max-md:w-[100%] max-md:px-[1rem]">
-        {!user && (
+        {!user.email && (
           <div className="bg-slate-200 inline-block px-[1rem] py-[0.5rem] rounded-sm">
             <h5 className="font-[400] text-[1.6rem]">
               <Link
@@ -28,7 +32,7 @@ const CartPage = () => {
               >
                 Sign In
               </Link>{" "}
-              to have a better shopping experience
+              for a better shopping experience.
             </h5>
           </div>
         )}
@@ -39,18 +43,24 @@ const CartPage = () => {
           : null}
 
         <h3 className="mb-[-3rem] text-right max-md:text-center">
-          You may also like these 👇{" "}
+          You may {cartItems?.length < 1 ? "" : "also"} like these 👇{" "}
         </h3>
         <BestSellers />
       </div>
 
       <div className="w-[30%] h-[10rem] sticky top-[1rem] flex flex-col gap-[1rem] items-center max-md:hidden">
-        <button className="bg-blue-500 text-white font-[500] text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center">
+        <Link
+          to={"/checkout"}
+          className={`bg-blue-500 text-white font-[500] text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center ${cartItems?.length < 1 ? "disabled bg-slate-500 cursor-not-allowed" : null} `}
+        >
           <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
-        </button>
-        <div className="w-[70%] flex flex-col gap-[1.5rem] border-[1px] rounded-md border-slate-300 p-[1rem]">
+        </Link>
+        <div
+          className={`w-[70%] flex flex-col gap-[1.5rem] border-[1px] rounded-md border-slate-300 p-[1rem] ${cartItems?.length < 1 ? "blur-[5px]" : null}`}
+        >
           <h5>Order Summary</h5>
-          <div className="flex justify-between text-[1.4rem]">
+
+          <div className={`flex justify-between text-[1.4rem] `}>
             <span className="font-[300] text-slate-500">Products Total</span>
             <span className="font-[500]">{productsTotal.toFixed(2)} ₺</span>
           </div>
@@ -82,28 +92,50 @@ const CartPage = () => {
           </div>
         </div>
 
-        <button className="bg-blue-500 text-white font-[500] text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center">
+        <Link
+          to={"/checkout"}
+          className={`bg-blue-500 text-white font-[500] text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center ${cartItems?.length < 1 ? "disabled bg-slate-500 cursor-not-allowed" : null} `}
+        >
           <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
-        </button>
+        </Link>
+        <p
+          className={`${cartItems?.length < 1 ? "visible text-red-400" : "hidden"}`}
+        >
+          * You don't have any products in your cart.
+        </p>
       </div>
-      <div className="hidden max-md:flex justify-between fixed bottom-0 bg-blue-500 min-w-[100%] px-[2rem] py-[2rem] border-t-[1px] border-slate-200">
-        <div className="flex text-white w-[50%] items-center gap-[2rem]">
-          <div>
-            <i className="fa-solid fa-arrow-down text-[2rem] text-slate-300"></i>
+      <div className="hidden max-md:flex flex-col gap-[1.5rem] justify-between fixed bottom-0 bg-blue-500 min-w-[100%] px-[2rem] py-[2rem] border-t-[1px] border-slate-200">
+        <p
+          className={`${cartItems?.length < 1 ? "text-red-200 font-[400] text-right" : "hidden"}`}
+        >
+          * You don't have any products in your cart.
+        </p>
+        <div className="flex justify-between">
+          <div className="flex text-white w-[50%] items-center gap-[2rem]">
+            <div>
+              <i className="fa-solid fa-arrow-down text-[2rem] text-slate-300"></i>
+            </div>
+            <div>
+              <p className=" text-slate-200">Total</p>
+              <p className="font-bold">{finalTotal.toFixed(2)} TL</p>
+            </div>
           </div>
           <div>
-            <p className=" text-slate-200">Toplam</p>
-            <p className="font-bold">{finalTotal.toFixed(2)} TL</p>
+            <Link
+              to={"/checkout"}
+              className={`bg-white text-blue-500 font-[500] text-[1.6rem]
+          px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center justify-center w-[20rem] ${cartItems?.length < 1 ? "disabled blur-[2px] cursor-not-allowed" : null}`}
+            >
+              <span>Check out</span>{" "}
+              <i className="fa-solid fa-chevron-right"></i>
+            </Link>
           </div>
         </div>
-        <div>
-          <button
-            className="bg-white text-blue-500 font-[500] text-[1.6rem]
-          px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center justify-center w-[20rem]"
-          >
-            <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
-          </button>
-        </div>
+        <p
+          className={`${finalTotal < 150 && cartItems?.length > 0 ? "text-[1rem] text-white" : "hidden"}`}
+        >
+          *Shipping fee included (19.99 TL)
+        </p>
       </div>
     </section>
   );
