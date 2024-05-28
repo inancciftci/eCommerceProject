@@ -17,6 +17,8 @@ import { API_URL } from "./app/api";
 import axios from "axios";
 import ShopPage from "./ui/pages/ShopPage";
 import CartPage from "./features/cart/CartPage";
+import AccountPage from "./ui/pages/AccountPage";
+import CheckoutPage from "./ui/pages/CheckoutPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -71,6 +73,14 @@ const App = () => {
         {
           path: "/login",
           element: <LoginPage />,
+        },
+        {
+          path: "/account",
+          element: <AccountPage />,
+        },
+        {
+          path: "/checkout",
+          element: <CheckoutPage />,
         },
       ],
     },
