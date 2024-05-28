@@ -39,6 +39,15 @@ export const getCards = createAsyncThunk("user/getCard", async () => {
   return res?.data;
 });
 
+export const saveCard = createAsyncThunk("user/saveCard", async (card) => {
+  const res = await axios.post(`${API_URL}/user/card`, card, {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+  });
+  return res?.data;
+});
+
 export const addressSlice = createSlice({
   name: "address",
   initialState,
@@ -73,6 +82,13 @@ export const addressSlice = createSlice({
           ...state,
           status: "completed",
           card: action.payload,
+        };
+      })
+      .addCase(saveCard.fulfilled, (state, action) => {
+        return {
+          ...state,
+          status: "completed",
+          card: [...state.card, action.payload[0]],
         };
       });
   },
