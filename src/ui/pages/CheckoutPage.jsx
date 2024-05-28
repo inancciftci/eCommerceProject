@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { selectUser } from "../../features/authentication/userSlice";
 import { selectCartItems } from "../../features/cart/cartSlice";
 import PaymentCard from "../PaymentCard";
+import CardForm from "../../features/authentication/CardForm";
 
 const CheckoutPage = () => {
   const user = useSelector(selectUser);
@@ -40,6 +41,7 @@ const CheckoutPage = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [showCardForm, setShowCardForm] = useState(false);
   const handleSteps = (step) => {
     setStep(step);
   };
@@ -74,11 +76,20 @@ const CheckoutPage = () => {
             onClick={() => handleSteps(2)}
             className={`w-[50%] max-md:w-[100%] bg-blue-100 p-[1rem] border-b-[0.8rem] cursor-pointer shadow-lg rounded-[3px] ${step == 1 ? "border-slate-300" : "border-blue-400"}`}
           >
-            <span
-              className={` font-[500] ${step == 1 ? "text-slate-300" : "text-slate-500"}`}
-            >
-              Step 2
-            </span>
+            <div className="flex justify-between">
+              <span
+                className={` font-[500] ${step == 1 ? "text-slate-300" : "text-slate-500"}`}
+              >
+                Step 2
+              </span>
+              {selectedCard ? (
+                <span className="font-[400] text-[1.2rem] underline">
+                  Selected card: {selectedCard?.name_on_card} ( **
+                  {selectedCard.card_no.slice(14, 16)})
+                </span>
+              ) : null}
+            </div>
+
             <h3 className="mb-[1rem]">Payment Options</h3>
             <p>
               You can safely make your payment with a{" "}
@@ -144,11 +155,16 @@ const CheckoutPage = () => {
         <div
           className={`flex-col gap-[0.5rem] border-[1px] rounded-[3px] border-slate-300 ${step == 2 ? "flex" : "hidden"}`}
         >
-          <div className="p-[1rem] flex flex-wrap justify-between gap-[1.5rem]">
-            <div className=" min-w-[48%] max-md:w-[100%] h-[150px] flex flex-col gap-[0.5rem] justify-center items-center bg-blue-100 bg-opacity-[0.4] rounded-[3px] border-slate-300 border-[1px] py-[3rem] transition-all cursor-pointer hover:translate-y-[-0.5rem] hover:shadow-xl">
-              <i className="fa-solid fa-plus text-blue-400 text-[3rem]"></i>
-              <p>Add a new card</p>
-            </div>
+          <ul className="p-[1rem] flex flex-wrap gap-[1.5rem] justify-between">
+            <li className="w-[32%]">
+              <div
+                onClick={() => setShowCardForm(true)}
+                className=" h-[150px] flex flex-col justify-center items-center bg-blue-100 bg-opacity-[0.4] rounded-[3px] border-slate-300 border-[1px] py-[3rem] transition-all cursor-pointer hover:translate-y-[-0.5rem] hover:shadow-xl"
+              >
+                <i className="fa-solid fa-plus text-blue-400 text-[3rem]"></i>
+                <p>Add a new card</p>
+              </div>
+            </li>
             {cards.map((card) => (
               <PaymentCard
                 key={cards.indexOf(card)}
@@ -156,9 +172,13 @@ const CheckoutPage = () => {
                 setSelectedCard={setSelectedCard}
               />
             ))}
-          </div>
+          </ul>
         </div>
         <AddressForm showForm={showForm} setShowForm={setShowForm} />
+        <CardForm
+          showCardForm={showCardForm}
+          setShowCardForm={setShowCardForm}
+        />
       </div>
       <div className="w-[30%] h-[42.5rem] sticky top-[1rem] flex flex-col gap-[1rem] items-center max-md:hidden">
         <Link
