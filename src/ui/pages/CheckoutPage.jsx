@@ -169,6 +169,7 @@ const CheckoutPage = () => {
               <PaymentCard
                 key={cards.indexOf(card)}
                 card={card}
+                selectedCard={selectedCard}
                 setSelectedCard={setSelectedCard}
               />
             ))}

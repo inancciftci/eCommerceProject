@@ -1,4 +1,4 @@
-const PaymentCard = ({ card, setSelectedCard }) => {
+const PaymentCard = ({ card, setSelectedCard, selectedCard }) => {
   const splitCardNumber = (cardNo) => {
     return (
       cardNo.slice(0, 4) +
@@ -9,14 +9,18 @@ const PaymentCard = ({ card, setSelectedCard }) => {
     );
   };
 
-  console.log(card);
+  const onChangeHandler = () => {
+    setSelectedCard(card);
+  };
 
   const organizedNo = splitCardNumber(card?.card_no);
   return (
-    <li className="w-[32%] max-md:w-[100%] min-h-[150px] border-[1px] rounded-[3px] bg-slate-100 p-[1rem] flex flex-col justify-between relative">
+    <li
+      className={`${card?.id === selectedCard?.id ? "border-blue-500" : "border-slate-300"} w-[32%] max-md:w-[100%] min-h-[150px] border-[1px] rounded-[3px] bg-slate-100 p-[1rem] flex flex-col justify-between relative`}
+    >
       <div className="flex items-center gap-[0.5rem] absolute top-[1rem] left-[1rem]">
         <input
-          onChange={() => setSelectedCard(card)}
+          onChange={() => onChangeHandler()}
           type="radio"
           name="addressChoice"
           id={card?.name}
