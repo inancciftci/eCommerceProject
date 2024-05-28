@@ -122,7 +122,7 @@ const ShopPage = () => {
             </div>
 
             <div className="flex flex-col items-center">
-              <span className="font-[500] text-[1.4rem]">Rating</span>
+              <span className="font-[100] text-[1.4rem] uppercase">Rating</span>
               <div className="flex gap-[0.5rem] items-center">
                 <button
                   onClick={paramHandler}
