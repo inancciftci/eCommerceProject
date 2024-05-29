@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { selectUser } from "../authentication/userSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { selectCartItems } from "./cartSlice";
 import CartItem from "./CartItem";
 import BestSellers from "../products/BestSellers";
@@ -8,6 +8,7 @@ import BestSellers from "../products/BestSellers";
 const CartPage = () => {
   const user = useSelector(selectUser);
   const cartItems = useSelector(selectCartItems);
+  const navigate = useNavigate();
   const productsTotal = cartItems.reduce(
     (acc, product) => acc + product.quantity * product.product.price,
     0
@@ -19,6 +20,12 @@ const CartPage = () => {
         ? productsTotal
         : productsTotal + shippingPrice
       : 0;
+
+  const buttonClickHandler = () => {
+    if (cartItems?.length > 0) {
+      navigate("/checkout");
+    }
+  };
 
   return (
     <section className="container max-md:pr-0 max-md:pl-0 max-md:max-w-[100%] flex gap-[1rem] min-h-[45rem]">
@@ -49,14 +56,14 @@ const CartPage = () => {
       </div>
 
       <div className="w-[30%] h-[10rem] sticky top-[1rem] flex flex-col gap-[1rem] items-center max-md:hidden">
-        <Link
-          to={"/checkout"}
-          className={`bg-blue-500 text-white font-[500] text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center ${cartItems?.length < 1 ? "disabled bg-slate-500 cursor-not-allowed" : null} `}
+        <button
+          onClick={buttonClickHandler}
+          className={`bg-blue-500 text-white font-[500] w-[80%] flex justify-center items-center text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center ${cartItems?.length < 1 ? "disabled bg-slate-500 cursor-not-allowed" : null} `}
         >
           <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
-        </Link>
+        </button>
         <div
-          className={`w-[70%] flex flex-col gap-[1.5rem] border-[1px] rounded-md border-slate-300 p-[1rem] ${cartItems?.length < 1 ? "blur-[5px]" : null}`}
+          className={`w-[80%] flex flex-col gap-[1.5rem] border-[1px] rounded-md border-slate-300 p-[1rem] ${cartItems?.length < 1 ? "blur-[5px]" : null}`}
         >
           <h5>Order Summary</h5>
 
@@ -92,12 +99,11 @@ const CartPage = () => {
           </div>
         </div>
 
-        <Link
-          to={"/checkout"}
-          className={`bg-blue-500 text-white font-[500] text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center ${cartItems?.length < 1 ? "disabled bg-slate-500 cursor-not-allowed" : null} `}
+        <button
+          className={`bg-blue-500 text-white font-[500] w-[80%] flex justify-center items-center text-[1.6rem] px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center ${cartItems?.length < 1 ? "disabled bg-slate-500 cursor-not-allowed" : null} `}
         >
           <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
-        </Link>
+        </button>
         <p
           className={`${cartItems?.length < 1 ? "visible text-red-400" : "hidden"}`}
         >
