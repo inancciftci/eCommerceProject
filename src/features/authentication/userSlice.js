@@ -9,6 +9,7 @@ const initialState = {
   role_id: "",
   token: localStorage.getItem("authToken") || "",
   fav_products: [],
+  orders: [],
   isLoading: false,
 };
 
@@ -25,10 +26,19 @@ export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (registerData) => {
     const request = await axios.post(`${API_URL}/signup`, registerData);
-    console.log(request?.data.message);
+    // console.log(request?.data.message);
     return request?.data.message;
   }
 );
+
+export const getOrders = createAsyncThunk("user/getOrders", async () => {
+  const request = await axios.get(`${API_URL}/order`, {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+  });
+  return request?.data;
+});
 
 export const logoutUser = createAsyncThunk("user/logout", async () => {
   return new Promise((resolve) => {
@@ -125,10 +135,17 @@ export const userSlice = createSlice({
           ...state,
           isLoading: false,
         };
+      })
+      .addCase(getOrders.fulfilled, (state, action) => {
+        return {
+          ...state,
+          orders: action.payload,
+        };
       });
   },
 });
 export const selectUser = (state) => state.user;
 export const selectUserLoading = (state) => state.user.isLoading;
+export const selectOrders = (state) => state.user.orders;
 export default userSlice.reducer;
 export const { setUser, addProductToFav, resetUser } = userSlice.actions;

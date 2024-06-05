@@ -48,6 +48,15 @@ export const saveCard = createAsyncThunk("user/saveCard", async (card) => {
   return res?.data;
 });
 
+export const checkOut = createAsyncThunk("user/checkout", async (data) => {
+  const res = await axios.post(`${API_URL}/order`, data, {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+  });
+  return res?.data;
+});
+
 export const addressSlice = createSlice({
   name: "address",
   initialState,

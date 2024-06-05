@@ -45,6 +45,13 @@ export const cartSlice = createSlice({
         cart: filteredCart,
       };
     },
+    resetCart(state) {
+      localStorage.removeItem("cart");
+      return {
+        ...state,
+        cart: [],
+      };
+    },
     incrementQuantity(state, action) {
       const existingProductIndex = state.cart.findIndex(
         (item) => item.product.id === action.payload.product.id
@@ -80,5 +87,6 @@ export const {
   incrementQuantity,
   decrementQuantity,
   deleteProduct,
+  resetCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;
