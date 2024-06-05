@@ -22,7 +22,7 @@ const PaymentCard = ({ card, setSelectedCard, selectedCard }) => {
         <input
           onChange={() => onChangeHandler()}
           type="radio"
-          name="addressChoice"
+          name="cardChoice"
           id={card?.name}
         />
         <label className={`text-[1.4rem] font-[500] `} htmlFor={card?.name}>

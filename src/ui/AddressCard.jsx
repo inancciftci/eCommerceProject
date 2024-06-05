@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddressCard = ({ address, setSelectedAddress }) => {
+const AddressCard = ({ address, setSelectedAddress, selectedAddress }) => {
   const [checked, setChecked] = useState(false);
   const radioButtonHandler = (address) => {
     setChecked(!checked);
@@ -28,7 +28,9 @@ const AddressCard = ({ address, setSelectedAddress }) => {
           <span className="text-[1.2rem] underline cursor-pointer">Edit</span>
         </div>
       </div>
-      <div className="mt-[0.5rem] bg-slate-100 bg-opacity-[0.4] border-[1px] border-slate-300 p-[1rem] rounded-[3px] text-[1.2rem]">
+      <div
+        className={`mt-[0.5rem] bg-slate-100 bg-opacity-[0.4] border-[1px]  p-[1rem] rounded-[3px] text-[1.2rem] ${address?.id === selectedAddress?.id ? "border-blue-500" : "border-slate-300"} border-[1px]`}
+      >
         <div className="flex justify-between">
           <div className="flex gap-[1rem] items-center">
             <i className="fa-solid fa-user"></i>
