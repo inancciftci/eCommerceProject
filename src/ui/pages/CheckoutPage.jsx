@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useDispatch, useSelector } from "react-redux";
 import {
+  checkOut,
   getAddress,
   getCards,
   selectAddress,
@@ -11,13 +12,21 @@ import AddressCard from "../AddressCard";
 import AddressForm from "../../features/authentication/AddressForm";
 import { Link } from "react-router-dom";
 import { selectUser } from "../../features/authentication/userSlice";
-import { selectCartItems } from "../../features/cart/cartSlice";
+import { resetCart, selectCartItems } from "../../features/cart/cartSlice";
 import PaymentCard from "../PaymentCard";
 import CardForm from "../../features/authentication/CardForm";
+import { toast } from "react-toastify";
 
 const CheckoutPage = () => {
   const user = useSelector(selectUser);
+
   const cartItems = useSelector(selectCartItems);
+
+  const transformedData = cartItems.map((product) => ({
+    count: product.quantity,
+    product_id: product.product.id,
+  }));
+
   const productsTotal = cartItems.reduce(
     (acc, product) => acc + product.quantity * product.product.price,
     0
@@ -42,12 +51,35 @@ const CheckoutPage = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showCardForm, setShowCardForm] = useState(false);
+  const [termsAggreed, setTermsAggreed] = useState(false);
+
+  const canCheckout = selectedAddress && selectedCard && termsAggreed;
+
+  console.log("can checkout?: ", !canCheckout);
+
+  const checkoutData = {
+    products: [...transformedData],
+    address_id: selectedAddress?.id,
+  };
+
+  const checkoutHandler = (data) => {
+    if (!canCheckout) {
+      null;
+    } else {
+      dispatch(checkOut(data));
+      toast.success("Order created.", {
+        theme: "dark",
+        className: "toast-message",
+      });
+      dispatch(resetCart());
+    }
+  };
   const handleSteps = (step) => {
     setStep(step);
   };
   return (
     <section className="container mx-auto flex gap-[0.5rem] justify-between">
-      <div className="w-[70%] flex flex-col gap-[0.5rem] max-md:w-[100%]">
+      <div className="w-[70%] min-h-[60vh] flex flex-col gap-[0.5rem] max-md:w-[100%]">
         <div className="flex max-md:flex-col gap-[0.5rem]">
           <div
             onClick={() => handleSteps(1)}
@@ -143,6 +175,7 @@ const CheckoutPage = () => {
                     <AddressCard
                       key={address.indexOf(addy)}
                       address={addy}
+                      selectedAddress={selectedAddress}
                       setSelectedAddress={setSelectedAddress}
                     />
                   ))}
@@ -155,7 +188,7 @@ const CheckoutPage = () => {
         <div
           className={`flex-col gap-[0.5rem] border-[1px] rounded-[3px] border-slate-300 ${step == 2 ? "flex" : "hidden"}`}
         >
-          <ul className="p-[1rem] flex flex-wrap gap-[1.5rem] justify-between">
+          <ul className="p-[1rem] flex flex-wrap gap-[1.5rem]">
             <li className="w-[32%]">
               <div
                 onClick={() => setShowCardForm(true)}
@@ -182,14 +215,20 @@ const CheckoutPage = () => {
         />
       </div>
       <div className="w-[30%] h-[42.5rem] sticky top-[1rem] flex flex-col gap-[1rem] items-center max-md:hidden">
-        <Link
-          to={"/checkout"}
-          className={`bg-blue-500 text-white font-[500] text-[1.6rem] w-[90%] justify-center px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center ${cartItems?.length < 1 ? "disabled bg-slate-500 cursor-not-allowed" : null} `}
+        <button
+          disabled={!canCheckout}
+          onClick={() => checkoutHandler(checkoutData)}
+          className={`bg-blue-500 text-white font-[500] text-[1.6rem] w-[80%] justify-center px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center ${!canCheckout ? "disabled bg-slate-500 cursor-not-allowed" : null} `}
         >
           <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
-        </Link>
-        <div className="w-[90%] border-[1px] border-slate-300 p-[1rem] flex items-center">
-          <input type="checkbox" name="terms" id="terms" />
+        </button>
+        <div className="w-[80%] border-[1px] border-slate-300 p-[1rem] flex items-center">
+          <input
+            onChange={() => setTermsAggreed(!termsAggreed)}
+            type="checkbox"
+            name="terms"
+            id="terms"
+          />
           <label
             className="text-[1.4rem] text-slate-500 ml-[1rem]"
             htmlFor="terms"
@@ -205,8 +244,9 @@ const CheckoutPage = () => {
             'ni okudum, onaylıyorum.
           </label>
         </div>
+
         <div
-          className={`w-[90%] flex flex-col gap-[1.5rem] border-[1px] rounded-md border-slate-300 p-[1rem] ${cartItems?.length < 1 ? "blur-[5px]" : null}`}
+          className={`w-[80%] flex flex-col gap-[1.5rem] border-[1px] rounded-md border-slate-300 p-[1rem] ${cartItems?.length < 1 ? "blur-[5px]" : null}`}
         >
           <h5>Order Summary</h5>
 
@@ -242,17 +282,33 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        <Link
-          to={"/checkout"}
-          className={`bg-blue-500 text-white font-[500] text-[1.6rem] w-[90%] justify-center px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center ${cartItems?.length < 1 ? "disabled bg-slate-500 cursor-not-allowed" : null} `}
+        <button
+          disabled={!canCheckout}
+          onClick={() => checkoutHandler(checkoutData)}
+          className={`bg-blue-500 text-white font-[500] text-[1.6rem] w-[80%] justify-center px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center ${!canCheckout ? "disabled bg-slate-500 cursor-not-allowed" : null} `}
         >
           <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
-        </Link>
-        <p
-          className={`${cartItems?.length < 1 ? "visible text-red-400" : "hidden"}`}
-        >
-          * You don't have any products in your cart.
-        </p>
+        </button>
+        <div className="flex flex-col gap-[0.5rem] w-[80%]">
+          {selectedCard ? null : (
+            <p className=" text-red-400">
+              <i className="fa-solid fa-exclamation mr-[0.5rem]"></i> Select a
+              card to place an order.
+            </p>
+          )}
+          {selectedAddress ? null : (
+            <p className=" text-red-400">
+              <i className="fa-solid fa-exclamation mr-[0.5rem]"></i> Select an
+              address to place an order.
+            </p>
+          )}
+          {termsAggreed ? null : (
+            <p className=" text-red-400">
+              <i className="fa-solid fa-exclamation mr-[0.5rem]"></i> Accept the
+              terms to place an order.
+            </p>
+          )}
+        </div>
       </div>
     </section>
   );
