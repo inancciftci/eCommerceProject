@@ -2,7 +2,6 @@ import { Outlet, useNavigation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import Loader from "../Loader";
-import { ToastContainer } from "react-toastify";
 
 const AppLayout = () => {
   const navigation = useNavigation();
@@ -16,7 +15,6 @@ const AppLayout = () => {
           <Outlet />
         </main>
         <Footer />
-        <ToastContainer />
       </div>
     </>
   );
