@@ -20,6 +20,7 @@ import CartPage from "./features/cart/CartPage";
 import AccountPage from "./ui/pages/AccountPage";
 import CheckoutPage from "./ui/pages/CheckoutPage";
 import ProtectedRoute from "./features/authentication/ProtectedRouter";
+import SuccessPage from "./ui/pages/SuccessPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -83,6 +84,10 @@ const App = () => {
         {
           path: "/checkout",
           element: <ProtectedRoute element={CheckoutPage} />,
+        },
+        {
+          path: "/checkout/completed",
+          element: <SuccessPage />,
         },
       ],
     },
