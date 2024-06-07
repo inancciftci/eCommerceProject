@@ -20,12 +20,12 @@ const OrderCard = ({ order }) => {
         <div className="flex flex-col text-center gap-[0.5rem]">
           <p className="font-[400]">Address</p>
           <hr />
-          <p className="text-center">{address.title}</p>
+          <p className="text-center">{address?.title}</p>
         </div>
         <div className="flex flex-col text-center gap-[0.5rem]">
           <p className="font-[400]">Order Total</p>
           <hr />
-          <p className="text-center">{orderTotal}</p>
+          <p className="text-center">{orderTotal.toFixed(2)}</p>
         </div>
         <div className="flex flex-col text-center gap-[0.5rem]">
           <p className="font-[400]">Product Count</p>
