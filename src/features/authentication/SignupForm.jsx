@@ -237,7 +237,6 @@ function SignUpForm() {
           )}
         </div>
       </form>
-      <ToastContainer />
     </div>
   );
 }
