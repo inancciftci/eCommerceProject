@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import AddressCard from "../AddressCard";
 import AddressForm from "../../features/authentication/AddressForm";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { selectUser } from "../../features/authentication/userSlice";
 import { resetCart, selectCartItems } from "../../features/cart/cartSlice";
 import PaymentCard from "../PaymentCard";
@@ -39,6 +39,7 @@ const CheckoutPage = () => {
         : productsTotal + shippingPrice
       : 0;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getAddress());
     dispatch(getCards());
@@ -55,7 +56,7 @@ const CheckoutPage = () => {
 
   const canCheckout = selectedAddress && selectedCard && termsAggreed;
 
-  console.log("can checkout?: ", !canCheckout);
+  // console.log("can checkout?: ", !canCheckout);
 
   const checkoutData = {
     products: [...transformedData],
@@ -72,6 +73,7 @@ const CheckoutPage = () => {
         className: "toast-message",
       });
       dispatch(resetCart());
+      navigate("/checkout/completed");
     }
   };
   const handleSteps = (step) => {
@@ -220,7 +222,8 @@ const CheckoutPage = () => {
           onClick={() => checkoutHandler(checkoutData)}
           className={`bg-blue-500 text-white font-[500] text-[1.6rem] w-[80%] justify-center px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center ${!canCheckout ? "disabled bg-slate-500 cursor-not-allowed" : null} `}
         >
-          <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
+          <span>Complete order</span>{" "}
+          <i className="fa-solid fa-chevron-right"></i>
         </button>
         <div className="w-[80%] border-[1px] border-slate-300 p-[1rem] flex items-center">
           <input
@@ -233,15 +236,10 @@ const CheckoutPage = () => {
             className="text-[1.4rem] text-slate-500 ml-[1rem]"
             htmlFor="terms"
           >
-            {" "}
+            I have carefully read and agree to the{" "}
             <span className="font-[400] text-black underline">
-              Ön Bilgilendirme Koşulları
+              Terms and Conditions.
             </span>
-            'nı ve{" "}
-            <span className="font-[400] text-black underline">
-              Mesafeli Satış Sözleşmesi
-            </span>{" "}
-            'ni okudum, onaylıyorum.
           </label>
         </div>
 
@@ -287,7 +285,8 @@ const CheckoutPage = () => {
           onClick={() => checkoutHandler(checkoutData)}
           className={`bg-blue-500 text-white font-[500] text-[1.6rem] w-[80%] justify-center px-[2rem] py-[1rem] rounded-md flex gap-[1rem] items-center ${!canCheckout ? "disabled bg-slate-500 cursor-not-allowed" : null} `}
         >
-          <span>Check out</span> <i className="fa-solid fa-chevron-right"></i>
+          <span>Complete order</span>{" "}
+          <i className="fa-solid fa-chevron-right"></i>
         </button>
         <div className="flex flex-col gap-[0.5rem] w-[80%]">
           {selectedCard ? null : (
